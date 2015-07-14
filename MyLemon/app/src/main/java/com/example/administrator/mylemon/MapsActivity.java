@@ -2,6 +2,11 @@ package com.example.administrator.mylemon;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -11,14 +16,44 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import MyFragments.PostFragment;
+import MyFragments.PostFragment_2;
+//  TODO: set up return button
+// TODO: Delete MainUI_BottomButtons when add postfragment
+// TODO: find a similar UI for postfragment
+// TODO: why transaction.replace  did not replace map fragment? just add new fragment on the top
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        // initialise buttons
+        final Button button = (Button) findViewById(R.id.button_post);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // Perform action on click
+// Create new fragment and transaction
+                Fragment newFragment = new PostFragment_2( );
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+// Replace whatever is in the fragment_container view with this fragment,
+// and add the transaction to the back stack
+                transaction.replace(R.id.map, newFragment);
+
+                transaction.addToBackStack(null);
+
+// Commit the transaction
+                transaction.commit();
+            }
+        });
     }
 
     @Override

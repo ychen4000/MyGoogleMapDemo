@@ -4,15 +4,15 @@
     android:layout_height="match_parent">
 
 
-    <fragment
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:name="MyFragments.MainPage_ButtonPanel"
-        android:id="@+id/fragment" />
-
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:id="@+id/map" tools:context=".MapsActivity"
+        android:layout_height="360dp" android:id="@+id/map" tools:context=".MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:name="MyFragments.MainUI_BottomButtons"
+        android:id="@+id/fragment" />
 
 </LinearLayout>
