@@ -2,6 +2,7 @@ package MyFragments;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +29,11 @@ public class PostFragment_2 extends Fragment {
         TakePhoto = (Button)v.findViewById(R.id.button_takephoto);
         SelectPhoto = (Button)v.findViewById(R.id.button_selectphoto);
 
+
         PostMarker.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Todo, 调用 GPS获得 当前位置信息
+
               // TODO  动态加入 Maker到 Map Fragment， 同时加入 到 后台 数据库
                 // Todo 方案二，加入数据 到 后台，然后 从 后台 调用
 

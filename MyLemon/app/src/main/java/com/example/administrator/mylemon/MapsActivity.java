@@ -1,11 +1,15 @@
 package com.example.administrator.mylemon;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,22 +20,32 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import MyFragments.PostFragment;
+
 import MyFragments.PostFragment_2;
 //  TODO: set up return button
 // TODO: Delete MainUI_BottomButtons when add postfragment
 // TODO: find a similar UI for postfragment
 // TODO: why transaction.replace  did not replace map fragment? just add new fragment on the top
+// TODO: put buttons on mapview, and make mapview full screen.
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    LocationManager MylocManager;
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_page);
+
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //  调用 GPS获得 当前位置信息,然后通过Post按钮传递到Post页面，以准备上传到后端
+        MylocManager = (LocationManager) getSystemService(
+                Context.LOCATION_SERVICE
+        );
 
 
         // initialise buttons
@@ -59,7 +73,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap map) {
         // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
+       Location MyLocation = MylocManager .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        LatLng MyGPSLocation = new LatLng(MyLocation.getLatitude(),MyLocation.getLongitude() );
+       /* LatLng sydney = new LatLng(-34, 151);
         LatLng sydney2 = new LatLng(-34, 152);
         map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
        // map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
@@ -73,10 +89,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
          final LatLng MELBOURNE = new LatLng(-37.81319, 144.96298);
+         */
         Marker melbourne = map.addMarker(new MarkerOptions()
-                .position(MELBOURNE)
-                .title("Melbourne")
-                .snippet("Population: 4,137,400"));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(MELBOURNE, 13));
+                .position(MyGPSLocation)
+                .title("MyLocation")
+                .snippet("This is current test location"));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(MyGPSLocation, 13));
     }
+
+
 }
