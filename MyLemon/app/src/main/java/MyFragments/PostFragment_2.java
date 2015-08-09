@@ -32,10 +32,10 @@ public class PostFragment_2 extends Fragment {
 
         PostMarker.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Todo, 调用 GPS获得 当前位置信息
+                // Todo,从MapsActivity调用位置信息
 
-              // TODO  动态加入 Maker到 Map Fragment， 同时加入 到 后台 数据库
-                // Todo 方案二，加入数据 到 后台，然后 从 后台 调用
+              // TODO  动态加入 位置信息到后台数据库
+
 
             }
         });

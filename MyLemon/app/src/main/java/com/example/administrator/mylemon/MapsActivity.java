@@ -74,6 +74,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap map) {
         // Add a marker in Sydney, Australia, and move the camera.
        Location MyLocation = MylocManager .getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        MyLocation = MylocManager .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         LatLng MyGPSLocation = new LatLng(MyLocation.getLatitude(),MyLocation.getLongitude() );
        /* LatLng sydney = new LatLng(-34, 151);
         LatLng sydney2 = new LatLng(-34, 152);
